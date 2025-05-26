@@ -41,6 +41,7 @@ jobs:
         prerelease: false
         release_name: "fishyrox"
         tag_name: ${{ github.ref }}
+        body: TESTIBUS
       env:
         GITHUB_TOKEN: ${{ github.token }}
     - name: upload  artifact
