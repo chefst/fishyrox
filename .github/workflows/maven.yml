@@ -33,17 +33,12 @@ jobs:
       run: mv ./jlink/target/maven-jlink/default ./jlink/target/maven-jlink/fishyrox
     - name: create custom zip
       run: zip -r fishyrox-bundle.zip ./jlink/target/maven-jlink/fishyrox
-    - name: release
-      uses: actions/create-release@v1
-      id: create_release
-      with:
-        draft: false
-        prerelease: false
-        release_name: "fishyrox"
-        tag_name: ${{ github.ref }}
-        body: TESTIBUS
+    - name: Create a Release
+      uses: elgohr/Github-Release-Action@v5
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        title: MyReleaseMessage
     - name: upload  artifact
       uses: actions/upload-release-asset@v1
       env:
