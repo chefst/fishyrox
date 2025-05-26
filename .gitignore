@@ -1,0 +1,8 @@
+.mvn
+.settings
+.classpath
+.project
+target
+jlink/target
+fishyrox/target
+fishyrox-bundle.zip
