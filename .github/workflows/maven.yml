@@ -13,6 +13,10 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+    
+env:
+  GH_TOKEN: ${{ secrets.PAT }}
+  GITHUB_TOKEN: ${{ secrets.PAT }}
 
 jobs:
   build:
@@ -34,17 +38,13 @@ jobs:
     - name: create custom zip
       run: zip -r fishyrox-bundle.zip ./jlink/target/maven-jlink/fishyrox
     - name: check token
-      run: "echo TOKEN: ${{ secrets.GITHUB_TOKEN }}"
+      run: "echo TOKEN: ${GH_TOKEN}"
     - name: Create a Release
       uses: elgohr/Github-Release-Action@v5
-      env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         title: MyReleaseMessage
     - name: upload  artifact
       uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.PAT }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: fishyrox-bundle.zip
