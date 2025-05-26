@@ -33,7 +33,18 @@ jobs:
       run: mv ./jlink/target/maven-jlink/default ./jlink/target/maven-jlink/fishyrox
     - name: create custom zip
       run: zip -r fishyrox-bundle.zip ./jlink/target/maven-jlink/fishyrox
-    - name: upload linux artifact
+    - name: release
+      uses: actions/create-release@v1
+      id: create_release
+      with:
+        draft: false
+        prerelease: false
+        release_name: "fishyrox"
+        tag_name: ${{ github.ref }}
+        body_path: CHANGELOG.md
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+    - name: upload  artifact
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ github.token }}
